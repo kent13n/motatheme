@@ -1,0 +1,24 @@
+{
+  "name": "kent13n/motatheme",
+  "type": "wordpress-theme",
+  "description": "Main Theme for Mota Project.",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Mota\\": "inc/"
+    }
+  },
+  "authors": [
+    {
+      "name": "kent13n"
+    }
+  ],
+  "require": {
+    "composer/installers": "^2.2"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  }
+}
