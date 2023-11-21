@@ -1,0 +1,1 @@
+{"version":3,"file":"scripts.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://motatheme/./assets/js/main.js"],"sourcesContent":["console.log('coucou les amis.');"],"names":["console","log"],"sourceRoot":""}
