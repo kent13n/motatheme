@@ -1,2 +1,2 @@
-console.log("coucou les amis.");
+(()=>{"use strict";class e{constructor(){this.toggle=this.toggle.bind(this),this.header=document.querySelector("header"),document.addEventListener("click",this.toggle)}toggle(e){e.target.closest(".hamburger")&&!document.body.classList.contains("menu-initialized")&&document.body.classList.add("menu-initialized"),e.target.closest(".hamburger")&&(this.header.classList.contains("opened")?this.header.classList.remove("opened"):this.header.classList.add("opened")),e.target.closest("nav")&&"a"===e.target.tagName.toLowerCase()&&this.header.classList.contains("opened")&&this.header.classList.remove("opened")}static bind(){return new e}}window.addEventListener("DOMContentLoaded",(function(){e.bind()}))})();
 //# sourceMappingURL=scripts.js.map

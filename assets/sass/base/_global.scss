@@ -1,0 +1,42 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 320px;
+  font-family: "Space Mono", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.container {
+  max-width: var(--width-container);
+  width: 100%;
+  margin: 0 auto;
+}
+
+a {
+  transition: color .3s;
+  color: var(--color-dark);
+  text-decoration: none;
+
+  &:visited {
+    color: var(--color-dark);
+  }
+
+  &:hover {
+    color: var(--color-red);
+  }
+}
+
+.sr-only {
+  display: none!important;
+}

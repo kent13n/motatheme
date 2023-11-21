@@ -1,1 +1,5 @@
-console.log('coucou les amis.');
+import Nav from "./Nav";
+
+window.addEventListener('DOMContentLoaded', function() {
+    Nav.bind();
+});
