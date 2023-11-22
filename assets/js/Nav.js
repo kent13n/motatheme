@@ -1,3 +1,5 @@
+import overlayInstance from "./Overlay";
+
 export default class Nav {
     constructor() {
         this.toggle = this.toggle.bind(this);
@@ -13,13 +15,16 @@ export default class Nav {
         if (evt.target.closest('.hamburger')) {
             if (this.header.classList.contains('opened')) {
                 this.header.classList.remove('opened');
+                overlayInstance.close();
             } else {
                 this.header.classList.add('opened');
+                overlayInstance.open();
             }
         }
 
         if (evt.target.closest('nav') && evt.target.tagName.toLowerCase() === 'a' && this.header.classList.contains('opened')) {
             this.header.classList.remove('opened');
+            overlayInstance.close();
         }
     }
 
