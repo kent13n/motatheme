@@ -164,13 +164,16 @@ header {
 @keyframes fadeOutMenu {
   0% {
     opacity: 1;
+    transform: translateX(0);
   }
   99.9% {
     opacity: 0;
+    transform: translateX(100%);
     display: block;
   }
   100% {
     opacity: 0;
+    transform: translateX(100%);
     display: none;
   }
 }
@@ -178,12 +181,15 @@ header {
 @keyframes fadeInMenu {
   0% {
     opacity: 0;
+    transform: translateX(100%);
   }
   0.1% {
     opacity: 0;
+    transform: translateX(100%);
     display: block;
   }
   100% {
     opacity: 1;
+    transform: translateX(0);
   }
 }

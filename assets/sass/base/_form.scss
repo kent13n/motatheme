@@ -1,0 +1,63 @@
+form {
+
+  label {
+    text-transform: uppercase;
+    font-family: Poppins, sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+    display: block;
+    text-align: left;
+  }
+
+  input {
+    text-align: left;
+    border-radius: 8px;
+    border: 1px solid #B8BBC2;
+    height: 40px;
+    padding: 10px 15px;
+    width: 100%;
+
+    &[type="submit"] {
+      text-align: center;
+      padding: 8px 15px;
+      height: 50px;
+      background-color: #D8D8D8;
+      box-shadow: 0 2px 1px rgba(0, 0, 0, 0.02);
+      border-radius: 2px;
+      font-family: "Space Mono", sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: #000000;
+      border: none;
+      cursor: pointer;
+      transition: background-color .3s ease-in-out, color .3s ease-in-out;
+
+      &:hover,
+      &:active {
+        background-color: var(--color-dark);
+        color: #fff;
+      }
+    }
+  }
+
+  textarea {
+    border-radius: 8px;
+    border: 1px solid #B8BBC2;
+    width: 100%;
+  }
+
+  & > p {
+    margin-bottom: 24px;
+    text-align: center;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .wpcf7-spinner {
+    margin-top: 15px;
+  }
+}
