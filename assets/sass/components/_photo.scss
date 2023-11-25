@@ -1,0 +1,132 @@
+.photo {
+  margin-top: 38px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  gap: 20px;
+
+  & > section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    &.content {
+      border-bottom: 1px solid #000;
+
+      & > * {
+        max-width: 420px;
+      }
+
+      h1 {
+        font-size: 66px;
+        font-weight: 400;
+        font-style: italic;
+        line-height: 58px;
+        text-transform: uppercase;
+      }
+
+      ul.photo__meta {
+        margin: 20px 0 40px 0;
+        text-transform: uppercase;
+        font-size: 14px;
+        line-height: 21px;
+        letter-spacing: 0.1em;
+
+        & > li {
+          margin-bottom: 20px;
+
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    &.thumbnail {
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.single-photos main .contact {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 118px;
+  border-bottom: 1px solid var(--color-dark);
+
+  & > p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 300;
+
+    .btn {
+      display: inline-block;
+      padding: 16px 110px;
+      font-family: "Space Mono", sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      border-radius: 2px;
+      color: var(--color-dark);
+      background-color: var(--color-gray);
+      box-shadow: 0 2px 1px 0 #00000005;
+      transition: background-color .3s ease-in-out, color .3s ease-in-out;
+
+      &:hover,
+      &:active {
+        color: #fff;
+        background-color: var(--color-dark);
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    & > .wrapper {
+      width: 81px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      img {
+        width: 81px;
+        height: 71px;
+        object-fit: cover;
+        display: none;
+      }
+
+      a {
+        display: block;
+      }
+
+      & > .links {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
