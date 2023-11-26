@@ -8,10 +8,11 @@
 
                     <ul class="photo__meta">
                         <li>
-                            <span>Référence</span> : <?= get_field('reference') ?>
+                            <span>Référence</span> : <span class="ref-photo"><?= get_field('reference') ?></span>
                         </li>
                         <li>
-                            <span>Catégorie</span> : <?= the_terms(false, 'category_photo') ?>
+                            <span>Catégorie</span> : <span
+                                    class="categories-photo"><?= the_terms(false, 'category_photo') ?></span>
                         </li>
                         <li>
                             <span>Format</span> : <?= the_terms(false, 'format') ?>
@@ -25,7 +26,12 @@
                     </ul>
                 </section>
                 <section class="thumbnail">
-                    <?php the_post_thumbnail(); ?>
+                    <?php the_post_thumbnail(null, ['data-lightbox-image' => wp_get_attachment_image_src(get_post_thumbnail_id(), 'full')[0]]); ?>
+                    <div class="thumbnail-overlay">
+                        <img class="icon-fullscreen"
+                             src="<?= get_template_directory_uri() . '/assets/images/icon-fullscreen.svg' ?>"
+                             alt="Icon fullscreen">
+                    </div>
                 </section>
             </article>
 
@@ -47,5 +53,32 @@
                 </div>
             </nav>
         </section>
+
+        <?php $query = \Mota\Mota::get_related_photos() ?>
+        <?php if ($query->have_posts()): ?>
+            <section class="related-photos">
+                <h2>Vous aimerez aussi</h2>
+
+                <div class="grid">
+                    <?php while ($query->have_posts()): $query->the_post() ?>
+                        <a href="<?= get_permalink(get_the_ID()) ?>" class="post-photo">
+                            <?php the_post_thumbnail('thumbnail', ['data-lightbox-image' => wp_get_attachment_image_src(get_post_thumbnail_id(), 'full')[0]]); ?>
+                            <span class="img-overlay">
+                                <img class="icon-eye"
+                                     src="<?= get_template_directory_uri() . '/assets/images/icon-eye.svg' ?>"
+                                     alt="Icon eye">
+                                <img class="icon-fullscreen"
+                                     src="<?= get_template_directory_uri() . '/assets/images/icon-fullscreen.svg' ?>"
+                                     alt="Icon fullscreen">
+                                <span class="ref-photo"><?= get_field('reference') ?></span>
+                                <span class="categories-photo"><?= trim(array_reduce(array_map(fn(\WP_Term $term) => $term->name, get_the_terms(get_post(), 'category_photo')), fn($acc, $name) => $acc . $name . ' ')) ?></span>
+                            </span>
+                        </a>
+                    <?php endwhile ?>
+                </div>
+
+                <a class="btn" href="#home">Toutes les photos</a>
+            </section>
+        <?php endif ?>
     </main>
 <?php get_footer(); ?>

@@ -61,3 +61,23 @@ form {
     margin-top: 15px;
   }
 }
+
+.btn {
+  display: inline-block;
+  padding: 16px 110px;
+  font-family: "Space Mono", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  border-radius: 2px;
+  color: var(--color-dark);
+  background-color: var(--color-gray);
+  box-shadow: 0 2px 1px 0 #00000005;
+  transition: background-color .3s ease-in-out, color .3s ease-in-out;
+
+  &:hover,
+  &:active {
+    color: #fff;
+    background-color: var(--color-dark);
+  }
+}

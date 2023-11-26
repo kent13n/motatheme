@@ -12,6 +12,7 @@
 </footer>
 
 <?php get_template_part('template-parts/contact') ?>
+<?php get_template_part('template-parts/lightbox') ?>
 <?php wp_footer(); ?>
 </body>
 </html>

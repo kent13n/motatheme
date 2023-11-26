@@ -5,6 +5,7 @@ namespace Mota;
 use Extended\ACF\Fields\Tab;
 use Extended\ACF\Fields\Text;
 use Extended\ACF\Location;
+use WP_Query;
 
 class Mota
 {
@@ -199,5 +200,24 @@ class Mota
         }
 
         return $html . '</div>';
+    }
+
+    public static function get_related_photos(): WP_Query
+    {
+        $categories = array_map(fn(\WP_Term $term) => $term->term_id, get_the_terms(get_post(), 'category_photo'));
+        $query = new WP_Query([
+            'post__not_in' => [get_the_ID()],
+            'post_type' => 'photos',
+            'posts_per_page' => 2,
+            'orderby' => 'rand',
+            'tax_query' => [
+                [
+                    'taxonomy' => 'category_photo',
+                    'terms' => $categories
+                ]
+            ]
+        ]);
+
+        return $query;
     }
 }
