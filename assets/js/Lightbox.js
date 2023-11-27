@@ -2,26 +2,63 @@ import overlayInstance from "./Overlay";
 
 export default class Lightbox {
     constructor() {
-        this.show = false;
         this.index = null;
         this.duration = 300;
 
+        this.show = this.show.bind(this);
         this.getData = this.getData.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.click = this.click.bind(this);
+        this.previous = this.previous.bind(this);
+        this.next = this.next.bind(this);
 
         this.lightbox = document.querySelector('.lightbox');
         this.closeEl = this.lightbox.querySelector('img.close');
+        this.previousEl = this.lightbox.querySelector('.previous-image');
+        this.nextEl = this.lightbox.querySelector('.next-image');
         this.elements = document.querySelectorAll('.icon-fullscreen');
 
         document.addEventListener('click', this.click);
-        console.log(this.elements);
+        this.preload();
+    }
+
+    preload() {
+        this.elements.forEach(el => (new Image()).src = (this.getTarget(el)).querySelector('img[data-lightbox-image]').getAttribute('data-lightbox-image'));
+    }
+
+    previous() {
+        let newIndex = this.index - 1;
+        if (newIndex < 0) newIndex = 0;
+        if (newIndex !== this.index) {
+            this.show(newIndex);
+        }
+    }
+
+    next() {
+        let newIndex = this.index + 1;
+        if (newIndex >= this.elements.length) newIndex = this.elements.length - 1;
+        if (newIndex !== this.index) {
+            this.show(newIndex);
+        }
     }
 
     click(evt) {
         if (this.closeEl.contains(evt.target)) {
+            evt.preventDefault();
             this.close();
+            return;
+        }
+
+        if (this.previousEl.contains(evt.target)) {
+            evt.preventDefault();
+            this.previous();
+            return;
+        }
+
+        if (this.nextEl.contains(evt.target)) {
+            evt.preventDefault();
+            this.next();
             return;
         }
 
@@ -30,18 +67,27 @@ export default class Lightbox {
                 evt.preventDefault();
                 this.index = index;
                 this.open();
-                return;
             }
         });
+    }
+
+    show(index = false) {
+        if (index !== false) this.index = index;
+        const data = this.getData();
+        if (this.lightbox.querySelector('.lightbox-image > img')) {
+            this.lightbox.querySelector('.lightbox-image > img').src = data.image;
+        } else {
+            this.lightbox.querySelector('.lightbox-image').innerHTML = `<img src="${data.image}" alt="lightbox image">`;
+        }
+        this.lightbox.querySelector('.ref-photo').innerText = data.ref;
+        this.lightbox.querySelector('.category-photo').innerText = data.category;
     }
 
     open() {
         overlayInstance.open();
 
         const data = this.getData();
-        this.lightbox.querySelector('.lightbox-image').innerHTML = `<img src="${data.image}" alt="">`;
-        this.lightbox.querySelector('.ref-photo').innerText = data.ref;
-        this.lightbox.querySelector('.category-photo').innerText = data.category;
+        this.show();
 
         this.lightbox.style.setProperty('display', 'flex');
         this.lightbox.animate({opacity: 1}, {duration: this.duration, fill: 'forwards'});

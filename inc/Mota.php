@@ -11,19 +11,38 @@ class Mota
 {
     public function __construct()
     {
-        add_theme_support('post-thumbnails');
-        add_theme_support('custom-logo');
-        add_theme_support('title-tag');
-        add_theme_support('menus');
-
+        add_action('after_setup_theme', [$this, 'add_supports']);
+        add_action('after_setup_theme', [$this, 'register_custom_image_sizes']);
         add_action('init', [$this, 'register_custom_post_type']);
         add_action('init', [$this, 'register_nav_menu']);
         add_action('init', [$this, 'register_taxonomies']);
         add_action('init', [$this, 'register_custom_fields']);
         add_action('wp_enqueue_scripts', [$this, 'register_assets']);
 
-        add_filter('manage_photos_posts_columns', [$this, 'manage_photos_posts_columns']);
         add_action('manage_photos_posts_custom_column', [$this, 'manage_photos_posts_custom_column'], 10, 2);
+
+        add_filter('manage_photos_posts_columns', [$this, 'manage_photos_posts_columns']);
+        add_filter('image_size_names_choose', [$this, 'add_custom_image_sizes']);
+    }
+
+    public function register_custom_image_sizes()
+    {
+        add_image_size('photo-thumbnail', 564, 495, true);
+    }
+
+    public function add_custom_image_sizes($sizes)
+    {
+        return array_merge($sizes, [
+            'photo-thumbnail' => 'Photo thumbnail'
+        ]);
+    }
+
+    public function add_supports()
+    {
+        add_theme_support('post-thumbnails');
+        add_theme_support('custom-logo');
+        add_theme_support('title-tag');
+        add_theme_support('menus');
     }
 
     public function register_assets()

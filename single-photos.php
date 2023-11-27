@@ -2,7 +2,7 @@
     <main class="container">
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-            <article class="photo">
+            <article class="photo grid">
                 <section class="content">
                     <h1><?php the_title(); ?></h1>
 
@@ -62,7 +62,7 @@
                 <div class="grid">
                     <?php while ($query->have_posts()): $query->the_post() ?>
                         <a href="<?= get_permalink(get_the_ID()) ?>" class="post-photo">
-                            <?php the_post_thumbnail('thumbnail', ['data-lightbox-image' => wp_get_attachment_image_src(get_post_thumbnail_id(), 'full')[0]]); ?>
+                            <?php the_post_thumbnail('photo-thumbnail', ['data-lightbox-image' => wp_get_attachment_image_src(get_post_thumbnail_id(), 'full')[0]]); ?>
                             <span class="img-overlay">
                                 <img class="icon-eye"
                                      src="<?= get_template_directory_uri() . '/assets/images/icon-eye.svg' ?>"
