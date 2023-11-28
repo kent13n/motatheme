@@ -4,6 +4,7 @@ export default class Select {
     constructor() {
         this.timeout = null;
         this.init = this.init.bind(this);
+        this.getFilters = this.getFilters.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -21,6 +22,21 @@ export default class Select {
             placeholder.innerText = placeholder.getAttribute('data-placeholder');
         });
         document.addEventListener('click', this.toggle);
+    }
+
+    getFilters() {
+        const data = new FormData();
+
+        this.selects.forEach(item => {
+            const activeEl = item.querySelector('ul.dropdown a.active');
+            if (activeEl) {
+                const value = activeEl.getAttribute('data-filter');
+                const key = item.getAttribute('data-select');
+                data.append(key, value);
+            }
+        })
+
+        return data;
     }
 
     toggle(evt) {
@@ -47,7 +63,7 @@ export default class Select {
         }
     }
 
-    select(el) {
+    async select(el) {
         this.unselect(el);
         el.classList.add('active');
         el.closest('[data-select]').querySelector('[data-placeholder]').innerText = el.innerText;
@@ -55,7 +71,7 @@ export default class Select {
         this.timeout = setTimeout(() => {
             this.close(el.closest('[data-select]'));
         }, 300);
-        ajaxInstance.filter();
+        await ajaxInstance.refreshPhotos(this.getFilters());
     }
 
     unselect(el) {
@@ -66,11 +82,12 @@ export default class Select {
         }
     }
 
-    reset(el) {
+    async reset(el) {
         const placeholder = el.querySelector('[data-placeholder]');
         placeholder.innerText = placeholder.getAttribute('data-placeholder');
         this.unselect(el);
         this.close(el);
+        await ajaxInstance.refreshPhotos(this.getFilters());
     }
 
     static bind() {

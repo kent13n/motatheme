@@ -1,11 +1,16 @@
 class Ajax {
-    filter() {
-        console.log('filter');
-        let url = '/wp-admin/admin-ajax.php';
-        fetch(url, {method: 'GET'})
-            .then(result => result.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
+    async getPhotos(data = new FormData()) {
+        let url = `/wp-json/mota/v1/photos`;
+        const response = await fetch(url, {
+            method: 'POST',
+            body: data
+        });
+        return response.json();
+    }
+
+    async refreshPhotos(data = new FormData()) {
+        const response = await this.getPhotos(data);
+        document.querySelector('.photos-wrapper').innerHTML = response.content;
     }
 
     static bind() {

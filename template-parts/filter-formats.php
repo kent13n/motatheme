@@ -1,5 +1,5 @@
 <?php $formats = get_terms(['taxonomy' => 'format', 'orderby' => 'id']); ?>
-<div class="formats" data-select>
+<div class="formats" data-select="format">
     <button class="dropdown-toggle">
         <span data-placeholder="Formats">Formats</span>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@
         </li>
         <?php foreach ($formats as $format): ?>
             <li>
-                <a data-filter href="<?= get_term_link($format) ?>">
+                <a data-filter="<?= $format->slug ?>" href="<?= get_term_link($format) ?>">
                     <?= $format->name ?>
                 </a>
             </li>

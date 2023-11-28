@@ -1,5 +1,5 @@
 <?php $dates = \Mota\Mota::get_photos_dates() ?>
-<div class="dates z-3" data-select>
+<div class="dates z-3" data-select="year">
     <button class="dropdown-toggle">
         <span data-placeholder="Trier par">Trier par</span>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

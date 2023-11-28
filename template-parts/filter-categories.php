@@ -1,5 +1,5 @@
 <?php $categories = get_terms(['taxonomy' => 'category_photo', 'orderby' => 'id']); ?>
-<div class="categories" data-select>
+<div class="categories" data-select="category">
     <button class="dropdown-toggle">
         <span data-placeholder="Catégories">Catégories</span>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

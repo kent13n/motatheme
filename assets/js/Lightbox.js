@@ -4,6 +4,7 @@ export default class Lightbox {
     constructor() {
         this.index = null;
         this.duration = 300;
+        this.timeout = null;
 
         this.show = this.show.bind(this);
         this.getData = this.getData.bind(this);
@@ -12,6 +13,7 @@ export default class Lightbox {
         this.click = this.click.bind(this);
         this.previous = this.previous.bind(this);
         this.next = this.next.bind(this);
+        this.refresh = this.refresh.bind(this);
 
         this.lightbox = document.querySelector('.lightbox');
         this.closeEl = this.lightbox.querySelector('img.close');
@@ -21,6 +23,21 @@ export default class Lightbox {
 
         document.addEventListener('click', this.click);
         this.preload();
+        this.mutationObserver = new MutationObserver(this.refresh);
+        this.mutationObserver.observe(document.documentElement, {
+            attributes: false,
+            characterData: false,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: false
+        });
+    }
+
+
+    refresh(evt) {
+        if (this.timeout) clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => this.elements = document.querySelectorAll('.icon-fullscreen'), 300);
     }
 
     preload() {
