@@ -239,4 +239,21 @@ class Mota
 
         return $query;
     }
+
+    public static function get_hero_image(): WP_Query
+    {
+        $query = new WP_Query([
+            'post_type' => 'photos',
+            'posts_per_page' => 1,
+            'orderby' => 'rand'
+        ]);
+        return $query;
+    }
+
+    public static function get_photos_dates(): array
+    {
+        global $wpdb;
+        $years = $wpdb->get_results("SELECT YEAR(post_date) FROM {$wpdb->posts} WHERE post_status = 'publish' GROUP BY YEAR(post_date) ORDER BY YEAR(post_date) ASC", ARRAY_N);
+        return array_map(fn($el) => $el[0], $years);
+    }
 }

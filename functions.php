@@ -5,3 +5,4 @@ if (!class_exists('Mota\Mota')) {
 }
 
 new Mota\Mota();
+new \Mota\Settings();

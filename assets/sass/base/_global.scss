@@ -57,12 +57,16 @@ a {
   display: none !important;
 }
 
+.z-3 {
+  z-index: 3 !important;
+}
+
 .grid {
   width: 100%;
   display: grid;
-  grid-auto-flow: column;
+  /*grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  grid-auto-rows: 1fr;
+  grid-auto-rows: 1fr;*/
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 
