@@ -49,6 +49,7 @@ class API
                 $tax_query = [];
                 $date_query = [];
                 $current_page = 1;
+                $posts_per_page = get_option('posts_per_page');
                 $category = $request->get_param('category');
                 $year = $request->get_param('year');
                 $format = $request->get_param('format');
@@ -83,9 +84,10 @@ class API
 
                 $query = new WP_Query([
                     'post_type' => 'photos',
-                    'posts_per_page' => 8,
+                    'posts_per_page' => $posts_per_page,
                     'paged' => $current_page,
                     'orderby' => 'date',
+                    'order' => 'asc',
                     'tax_query' => $tax_query,
                     'date_query' => $date_query
                 ]);

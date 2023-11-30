@@ -18,6 +18,8 @@ class Settings
     {
         if (is_home() && $query->is_main_query() && get_option('mota_options_photos_on_front_page')) {
             $query->set('post_type', 'photos');
+            $query->set('order', 'ASC');
+            $query->set('orderby', 'date');
         }
     }
 

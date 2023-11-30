@@ -8,11 +8,6 @@ class Ajax {
         return response.json();
     }
 
-    async refreshPhotos(data = new FormData()) {
-        const response = await this.getPhotos(data);
-        document.querySelector('.photos-wrapper').innerHTML = response.content;
-    }
-
     static bind() {
         return new Ajax;
     }

@@ -18,11 +18,20 @@ class Mota
         add_action('init', [$this, 'register_taxonomies']);
         add_action('init', [$this, 'register_custom_fields']);
         add_action('wp_enqueue_scripts', [$this, 'register_assets']);
+        add_action('pre_get_posts', [$this, 'pre_get_posts_photo']);
 
         add_action('manage_photos_posts_custom_column', [$this, 'manage_photos_posts_custom_column'], 10, 2);
 
         add_filter('manage_photos_posts_columns', [$this, 'manage_photos_posts_columns']);
         add_filter('image_size_names_choose', [$this, 'add_custom_image_sizes']);
+    }
+
+    public function pre_get_posts_photo(WP_Query $query)
+    {
+        if (is_archive() && $query->get('post_type') === 'photos') {
+            $query->set('order', 'ASC');
+            $query->set('orderby', 'date');
+        }
     }
 
     public function register_custom_image_sizes()
@@ -144,7 +153,6 @@ class Mota
                     ->required()
                     ->maxLength(50)
             ]
-
         ]);
     }
 

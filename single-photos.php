@@ -65,7 +65,7 @@
                     <?php endwhile ?>
                 </div>
 
-                <a class="btn" href="#home">Toutes les photos</a>
+                <a class="btn" href="/">Toutes les photos</a>
             </section>
         <?php endif ?>
     </main>

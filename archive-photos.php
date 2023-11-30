@@ -19,10 +19,13 @@
             </div>
             <?= get_template_part('template-parts/filter', 'dates') ?>
         </div>
-        <div class="grid photos-wrapper">
+        <div class="grid photos-wrapper" data-posts-per-page="<?= get_option('posts_per_page') ?>">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                 <?= get_template_part('template-parts/photo') ?>
             <?php endwhile; endif; ?>
+        </div>
+        <div class="load-more">
+            <a class="btn" href="javascript:">Charger plus</a>
         </div>
     </main>
 <?php get_footer(); ?>

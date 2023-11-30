@@ -1,10 +1,10 @@
 import ajaxInstance from "./Ajax";
+import loadMoreInstance from "./LoadMore";
 
 export default class Select {
     constructor() {
         this.timeout = null;
         this.init = this.init.bind(this);
-        this.getFilters = this.getFilters.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -22,21 +22,6 @@ export default class Select {
             placeholder.innerText = placeholder.getAttribute('data-placeholder');
         });
         document.addEventListener('click', this.toggle);
-    }
-
-    getFilters() {
-        const data = new FormData();
-
-        this.selects.forEach(item => {
-            const activeEl = item.querySelector('ul.dropdown a.active');
-            if (activeEl) {
-                const value = activeEl.getAttribute('data-filter');
-                const key = item.getAttribute('data-select');
-                data.append(key, value);
-            }
-        })
-
-        return data;
     }
 
     toggle(evt) {
@@ -71,7 +56,7 @@ export default class Select {
         this.timeout = setTimeout(() => {
             this.close(el.closest('[data-select]'));
         }, 300);
-        await ajaxInstance.refreshPhotos(this.getFilters());
+        await this.filterPhotos();
     }
 
     unselect(el) {
@@ -87,7 +72,34 @@ export default class Select {
         placeholder.innerText = placeholder.getAttribute('data-placeholder');
         this.unselect(el);
         this.close(el);
-        await ajaxInstance.refreshPhotos(this.getFilters());
+        await this.filterPhotos();
+    }
+
+    async filterPhotos() {
+        const response = await ajaxInstance.getPhotos(Select.getFilters());
+        if (response) {
+            document.querySelector('.photos-wrapper').innerHTML = response.content;
+            if (response.total_pages && response.total_pages > 1) {
+                loadMoreInstance.show();
+            } else {
+                loadMoreInstance.hide();
+            }
+        }
+    }
+
+    static getFilters() {
+        const data = new FormData();
+
+        document.querySelectorAll('[data-select]').forEach(item => {
+            const activeEl = item.querySelector('ul.dropdown a.active');
+            if (activeEl) {
+                const value = activeEl.getAttribute('data-filter');
+                const key = item.getAttribute('data-select');
+                data.append(key, value);
+            }
+        })
+
+        return data;
     }
 
     static bind() {
