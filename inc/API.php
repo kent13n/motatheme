@@ -45,6 +45,7 @@ class API
     {
         register_rest_route($this->namespace, 'photos', [
             'methods' => 'POST',
+            'permission_callback' => '__return_true',
             'callback' => function (\WP_REST_Request $request) {
                 $tax_query = [];
                 $date_query = [];

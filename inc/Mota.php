@@ -24,6 +24,7 @@ class Mota
 
         add_filter('manage_photos_posts_columns', [$this, 'manage_photos_posts_columns']);
         add_filter('image_size_names_choose', [$this, 'add_custom_image_sizes']);
+        add_filter('wp_nav_menu_items', [$this, 'add_all_rights_reserved_to_footer_menu'], 10, 2);
     }
 
     public function pre_get_posts_photo(WP_Query $query)
@@ -172,6 +173,14 @@ class Mota
         if ($column_name == 'reference') {
             echo get_field('reference', $post_id);
         }
+    }
+
+    public function add_all_rights_reserved_to_footer_menu($items, $args)
+    {
+        if ($args->theme_location == 'footer') {
+            $items .= '<li>TOUS DROITS RÉSERVÉS</li>';
+        }
+        return $items;
     }
 
     public static function get_prev_next_thumbnails()
